@@ -16,7 +16,7 @@ export default function Home({
 }) {
   const [state, toggle] = useToggle();
   const [lightbulbState, { on, off, stomp }] = useLightbulb();
-  const submit = useHandleSubmit(handleSubmit);
+  const submit = useHandleSubmit();
 
   function handleSubmit(book) {
     addBook({
@@ -34,7 +34,7 @@ export default function Home({
         <button onClick={off}>Turn off</button>
         <button onClick={stomp}>Stomp</button>
       </div>
-      <form onSubmit={submit}>
+      <form onSubmit={submit(handleSubmit)}>
         <label htmlFor="new-book">New Book:</label>
         <input type="text" id="new-book" name="new-book" />
         <button type="submit">Submit</button>

@@ -75,17 +75,19 @@ function useBookList() {
   return [state, { addBook, deleteBook }];
 }
 
-function useHandleSubmit(onSubmit) {
+function useHandleSubmit() {
   //schlechter usecase für hook
-  function handleSubmit(event) {
-    event.preventDefault();
+  function createSubmit(onSubmit) {
+    return function handleSubmit(event) {
+      event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    onSubmit(data);
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData);
+      onSubmit(data);
+    };
   }
 
-  return handleSubmit;
+  return createSubmit;
 }
 
 export { useToggle, useLightbulb, useBookList, useHandleSubmit };
